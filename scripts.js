@@ -3,19 +3,18 @@
 window.addEventListener('load', function(event) {
     // find the canvas element
     var canvasElement = document.querySelector('#canvas');
-    // get the drawing context
-    var canvas = canvasElement.getContext('2d');
+
 
     // have it fill it's parent container
+    // ==================================================
     var parentElement = canvasElement.parentNode;
+
     var canvasWidth = parentElement.offsetWidth;
     var canvasHeight = parentElement.offsetHeight;
+
     canvasElement.setAttribute('width', canvasWidth);
     canvasElement.setAttribute('height', canvasHeight);
 
-    // fill style set to light-white
-    canvas.fillStyle = '#ebebeb';
-    canvas.strokeStyle = '#ebebeb';
 
     // add some event listeners
     // ==================================================
@@ -32,7 +31,16 @@ window.addEventListener('load', function(event) {
     })
 
 
-    // make the bars
+    // canvas setup
+    // ==================================================
+    // get the drawing context
+    var canvas = canvasElement.getContext('2d');
+    // fill style set to light-white
+    canvas.fillStyle = '#ebebeb';
+    canvas.strokeStyle = '#ebebeb';
+
+
+    // make the bars array
     // ==================================================
     // layout settings
     var startingX = 0;
@@ -46,6 +54,14 @@ window.addEventListener('load', function(event) {
         maxThickness: 10,
         width: 150
     };
+
+    // how many columns can we fit?
+    var columnMargin = 30;
+    var numberOfColumns = Math.floor(canvasWidth / (bar.width + columnMargin));
+
+
+    // make an array that we loop through?
+    // that way we can animate properties because we can tracck the height of it
 
 
     // draws a line based on the currentX and currentY
@@ -72,13 +88,11 @@ window.addEventListener('load', function(event) {
         canvas.stroke();
     }
 
-    // how many columns can we fit?
-    var columnMargin = 30;
-    var numberOfColumns = Math.floor(canvasWidth / (bar.width + columnMargin));
-
-
     function drawGrid() {
+        // clear grid
+        canvas.clearRect(0, 0, canvasWidth, canvasHeight);
 
+        // reset drawing variables
         currentX = startingX;
         currentY = startingY;
 
@@ -96,7 +110,7 @@ window.addEventListener('load', function(event) {
             currentY = startingY;
         }
 
-        requestAnimationFrame(drawGrid);
+        window.requestAnimationFrame(drawGrid);
     }
 
     drawGrid();
