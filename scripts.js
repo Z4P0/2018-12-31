@@ -24,7 +24,10 @@ window.addEventListener('load', function(event) {
     var offsetTop = canvasElement.offsetTop;
 
     canvasElement.addEventListener('mousemove', function(event) {
-        console.log(event.clientX - offsetLeft, event.clientY - offsetTop);
+        console.log(
+            event.clientX - offsetLeft,
+            event.clientY - offsetTop
+        );
     })
 
 
@@ -62,18 +65,28 @@ window.addEventListener('load', function(event) {
     var columnMargin = 30;
     var numberOfColumns = Math.floor(canvasWidth / (bar.width + columnMargin));
 
-    // start making columns
-    for (var i = 0; i < numberOfColumns; i++) {
-        // how many items per column?
-        for (var j = 0; j < 25; j++) {
-            // draw line
-            drawLine();
-            // move the currentY
-            currentY += 20;
+
+    function drawGrid() {
+
+        currentX = startingX;
+        currentY = startingY;
+
+        // start making columns
+        for (var i = 0; i < numberOfColumns; i++) {
+            // how many items per column?
+            for (var j = 0; j < 25; j++) {
+                // draw line
+                drawLine();
+                // move the currentY
+                currentY += 20;
+            }
+
+            currentX += bar.width + columnMargin;
+            currentY = startingY;
         }
 
-        currentX += bar.width + columnMargin;
-        currentY = startingY;
+        requestAnimationFrame(drawGrid);
     }
 
+    drawGrid();
 });
