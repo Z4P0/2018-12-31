@@ -35,7 +35,7 @@ window.addEventListener('load', function(event) {
 
     // layout settings
     var startingX = 0;
-    var startingY = 2;
+    var startingY = 12;
     var currentX = startingX;
     var currentY = startingY;
 
@@ -77,12 +77,21 @@ window.addEventListener('load', function(event) {
     }
 
     // how many columns can we fit?
-    // how many items per column?
-    // draw 1 column
-    for (var i = 0; i < 10; i++) {
-        // draw line
-        drawLine();
-        // move the currentY
-        currentY += 20;
+    var columnMargin = 30;
+    var numberOfColumns = Math.floor(canvasWidth / (bar.width + columnMargin));
+
+    // start making columns
+    for (var i = 0; i < numberOfColumns; i++) {
+        // how many items per column?
+        for (var j = 0; j < 25; j++) {
+            // draw line
+            drawLine();
+            // move the currentY
+            currentY += 20;
+        }
+
+        currentX += bar.width + columnMargin;
+        currentY = startingY;
     }
+
 });
