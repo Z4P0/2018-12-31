@@ -17,22 +17,19 @@ window.addEventListener('load', function(event) {
     canvas.fillStyle = '#ebebeb';
     canvas.strokeStyle = '#ebebeb';
 
+    // add some event listeners
+    // ==================================================
+    // we have to do some math to find the mouse position relative to the canvas
+    var offsetLeft = canvasElement.offsetLeft;
+    var offsetTop = canvasElement.offsetTop;
+
+    canvasElement.addEventListener('mousemove', function(event) {
+        console.log(event.clientX - offsetLeft, event.clientY - offsetTop);
+    })
+
 
     // make the bars
     // ==================================================
-    // how many can we fit if the min-width is 150
-    // // draw 1 bar
-    // canvas.fillRect(100, 100, 150, 2);
-
-    // // use a stroke instead?
-    // for (var i = 0; i < 10; i++) {
-    //     canvas.lineWidth = 1 + i;
-    //     canvas.beginPath();
-    //     canvas.moveTo(5 + i * 14, 5);
-    //     canvas.lineTo(5 + i * 14, 140);
-    //     canvas.stroke();
-    // }
-
     // layout settings
     var startingX = 0;
     var startingY = 12;
@@ -45,21 +42,6 @@ window.addEventListener('load', function(event) {
         maxThickness: 10,
         width: 150
     };
-
-
-
-    // // draw 1 line
-    // // ----------------------------------------
-    // // set the drawing thickness
-    // canvas.lineWidth = bar.defaultThickness;
-    // // start drawing
-    // canvas.beginPath();
-    // // starting point
-    // canvas.moveTo(currentX, currentY);
-    // // draw line to end point
-    // canvas.lineTo(currentX + bar.width, currentY);
-    // // close the line
-    // canvas.stroke();
 
 
     // draws a line based on the currentX and currentY
