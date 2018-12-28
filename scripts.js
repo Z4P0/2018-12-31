@@ -22,12 +22,13 @@ window.addEventListener('load', function(event) {
     // we have to do some math to find the mouse position relative to the canvas
     var offsetLeft = canvasElement.offsetLeft;
     var offsetTop = canvasElement.offsetTop;
+    var mouseX = 0;
+    var mouseY = 0;
 
     canvasElement.addEventListener('mousemove', function(event) {
-        console.log(
-            event.clientX - offsetLeft,
-            event.clientY - offsetTop
-        );
+        mouseX = event.clientX - offsetLeft;
+        mouseY = event.clientY - offsetTop;
+        // console.log(mouseX, mouseY);
     })
 
 
@@ -50,7 +51,17 @@ window.addEventListener('load', function(event) {
     // draws a line based on the currentX and currentY
     function drawLine() {
         // set the drawing thickness
-        canvas.lineWidth = bar.defaultThickness;
+        var yOffset = Math.floor(bar.maxThickness / 2);
+        if (
+            mouseX > currentX &&
+            mouseX < (currentX + bar.width) &&
+            mouseY > (currentY - yOffset) &&
+            mouseY < (currentY + yOffset)
+        ) {
+            canvas.lineWidth = bar.maxThickness;
+        } else {
+            canvas.lineWidth = bar.defaultThickness;
+        }
         // start drawing
         canvas.beginPath();
         // starting point
