@@ -1,0 +1,29 @@
+html(lang="en").no-js
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
+    title Page title
+    meta(name="description", content="Page description")
+    style.
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      .container {
+        min-height: 100vh;
+        display: flex;
+        padding: 1rem 2rem;
+        background-color: #111;
+      }
+      canvas {
+        display: block;
+        margin: auto;
+        background-color: rgba(200,200,200,0.1);
+      }
+  body
+    .container
+      canvas#canvas
+    script(src="scripts.js")
