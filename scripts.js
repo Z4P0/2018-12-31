@@ -7,13 +7,13 @@ window.addEventListener('load', function(event) {
     // For a single bar
     var bar = {
         defaultThickness: 2,
-        maxThickness: 10,
+        maxThickness: 16,
         width: 150
     };
 
     // layout settings
     var columnMargin = 30;
-    var rowMargin = 15;
+    var rowMargin = 8;
 
     // updated via functions
     var canvasWidth = 0;
@@ -128,7 +128,7 @@ window.addEventListener('load', function(event) {
             settings.lineWidth = settings.lineWidth + (bar.maxThickness - settings.lineWidth) * 0.5;
         } else {
             // decrease size
-            settings.lineWidth = settings.lineWidth + (bar.defaultThickness - settings.lineWidth) * 0.5;
+            settings.lineWidth = settings.lineWidth + (bar.defaultThickness - settings.lineWidth) * 0.125;
         }
 
         // set the line width
