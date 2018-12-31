@@ -4,32 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Page title</title>
-    <meta name="description" content="Page description">
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        min-height: 100vh;
-        padding: 25vh 10vw 5vh;
-        background-color: #111;
-        margin: 0;
-      }
-      .container {
-        display: flex;
-        height: 70vh;
-      }
-      canvas {
-        display: block;
-        margin: auto;
-      }
-    </style>
+    <title>2018-12-31</title>
+    <meta name="description" content="2018-12-31">
+    <style>*{box-sizing:border-box}body{min-height:100vh;padding:25vh 10vw 5vh;background-color:#111;margin:0}.container{display:flex;height:70vh}canvas{display:block;margin:auto}</style>
   </head>
   <body>
     <div class="container">
       <canvas id="canvas"></canvas>
     </div>
-    <script src="scripts.js"></script>
+    <script>'use strict';window.addEventListener('load',function(event){var bar={defaultThickness:2,maxThickness:16,width:150};var columnMargin=30;var rowMargin=8;var canvasWidth=0;var canvasHeight=0;var numberOfColumns=1;var numberOfRows=10;var canvasElement=document.querySelector('#canvas');var parentElement=canvasElement.parentNode;updateCanvasSize();function updateCanvasSize(){var widthUnit=bar.width+columnMargin,startingWidth=parentElement.offsetWidth-columnMargin;numberOfColumns=Math.floor(startingWidth/widthUnit);canvasWidth=(numberOfColumns*widthUnit)-columnMargin;var heightUnit=bar.maxThickness+rowMargin,startingHeight=parentElement.offsetHeight-rowMargin;numberOfRows=Math.floor(startingHeight/heightUnit);canvasHeight=numberOfRows*heightUnit;canvasElement.setAttribute('width',canvasWidth);canvasElement.setAttribute('height',canvasHeight)}var offsetLeft=canvasElement.offsetLeft;var offsetTop=canvasElement.offsetTop;var mouseX=0;var mouseY=0;canvasElement.addEventListener('mousemove',function(event){mouseX=event.clientX-offsetLeft;mouseY=event.clientY-offsetTop});var canvas=canvasElement.getContext('2d');canvas.fillStyle='#ebebeb';canvas.strokeStyle='#ebebeb';var bars=[];var startingX=0,startingY=12,currentX=startingX,currentY=startingY;for(var i=0;i<numberOfColumns;i+=1){for(var j=0;j<numberOfRows;j+=1){bars.push({x:currentX,y:currentY,lineWidth:bar.defaultThickness,length:bar.width});currentY+=bar.maxThickness+rowMargin}currentX+=bar.width+columnMargin;currentY=startingY}function drawBar(settings){var lineWidth=bar.defaultThickness;var yOffset=Math.floor(bar.maxThickness/2);if(mouseX>settings.x&&mouseX<(settings.x+bar.width)&&mouseY>(settings.y-yOffset)&&mouseY<(settings.y+yOffset)){settings.lineWidth=settings.lineWidth+(bar.maxThickness-settings.lineWidth)*0.5}else{settings.lineWidth=settings.lineWidth+(bar.defaultThickness-settings.lineWidth)*0.125}canvas.lineWidth=settings.lineWidth;canvas.beginPath();canvas.moveTo(settings.x,settings.y);canvas.lineTo(settings.x+bar.width,settings.y);canvas.stroke()}function drawGrid(){canvas.clearRect(0,0,canvasWidth,canvasHeight);for(var i=0;i<bars.length;i+=1){drawBar(bars[i])}window.requestAnimationFrame(drawGrid)}drawGrid()});</script>
   </body>
 </html>
