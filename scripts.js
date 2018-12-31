@@ -37,7 +37,7 @@ window.addEventListener('load', function(event) {
             startingWidth = parentElement.offsetWidth - columnMargin;
 
         numberOfColumns = Math.floor(startingWidth / widthUnit);
-        canvasWidth     = numberOfColumns * widthUnit;
+        canvasWidth     = (numberOfColumns * widthUnit) - columnMargin;
 
         // find the best height
         // ----------------------------------------
