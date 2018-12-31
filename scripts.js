@@ -13,12 +13,13 @@ window.addEventListener('load', function(event) {
 
     // layout settings
     var columnMargin = 30;
+    var rowMargin = 15;
 
     // updated via functions
     var canvasWidth = 0;
     var canvasHeight = 0;
     var numberOfColumns = 1;
-
+    var numberOfRows = 10;
 
 
     // find the canvas element
@@ -28,16 +29,24 @@ window.addEventListener('load', function(event) {
     updateCanvasSize();
 
     function updateCanvasSize() {
+        // find the best width
+        // ----------------------------------------
         // take the parent element width and see how many columns + margins we can fit
-        var unit = bar.width + columnMargin;
-        // we want everything flush so remove the last margin
-        var startingWidth = parentElement.offsetWidth - columnMargin;
+        var widthUnit = bar.width + columnMargin,
+            // we want everything flush so remove the last margin
+            startingWidth = parentElement.offsetWidth - columnMargin;
 
-        // update our globals
-        numberOfColumns = Math.floor(startingWidth / unit);
-        canvasWidth = numberOfColumns * unit;
-        // TODO
-        canvasHeight = parentElement.offsetHeight;
+        numberOfColumns = Math.floor(startingWidth / widthUnit);
+        canvasWidth     = numberOfColumns * widthUnit;
+
+        // find the best height
+        // ----------------------------------------
+        var heightUnit = bar.maxThickness + rowMargin,
+            startingHeight = parentElement.offsetHeight - rowMargin;
+
+        numberOfRows    = Math.floor(startingHeight / heightUnit);
+        canvasHeight    = numberOfRows * heightUnit;
+
         // update the DOM
         // ----------------------------------------
         canvasElement.setAttribute('width', canvasWidth);
@@ -84,7 +93,7 @@ window.addEventListener('load', function(event) {
     // a single bar knows it's x, y, lineWidth, length
     for (var i = 0; i < numberOfColumns; i++) {
         // how many items per column?
-        for (var j = 0; j < 25; j++) {
+        for (var j = 0; j < numberOfRows; j++) {
             // push new bar to array
             bars.push({
                 x:          currentX,
@@ -93,7 +102,7 @@ window.addEventListener('load', function(event) {
                 length:     bar.width
             });
             // move the currentY
-            currentY += 20;
+            currentY += bar.maxThickness + rowMargin;
         }
 
         currentX += bar.width + columnMargin;
