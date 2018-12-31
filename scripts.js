@@ -1,19 +1,49 @@
 'use strict';
 
 window.addEventListener('load', function(event) {
+
+    // Settings
+    // ==================================================
+    // For a single bar
+    var bar = {
+        defaultThickness: 2,
+        maxThickness: 10,
+        width: 150
+    };
+
+    // layout settings
+    var columnMargin = 30;
+
+    // updated via functions
+    var canvasWidth = 0;
+    var canvasHeight = 0;
+    var numberOfColumns = 1;
+
+
+
     // find the canvas element
     var canvasElement = document.querySelector('#canvas');
-
-
-    // have it fill it's parent container
-    // ==================================================
     var parentElement = canvasElement.parentNode;
 
-    var canvasWidth = parentElement.offsetWidth;
-    var canvasHeight = parentElement.offsetHeight;
+    updateCanvasSize();
 
-    canvasElement.setAttribute('width', canvasWidth);
-    canvasElement.setAttribute('height', canvasHeight);
+    function updateCanvasSize() {
+        // take the parent element width and see how many columns + margins we can fit
+        var unit = bar.width + columnMargin;
+        // we want everything flush so remove the last margin
+        var startingWidth = parentElement.offsetWidth - columnMargin;
+
+        // update our globals
+        numberOfColumns = Math.floor(startingWidth / unit);
+        canvasWidth = numberOfColumns * unit;
+        // TODO
+        canvasHeight = parentElement.offsetHeight;
+        // update the DOM
+        // ----------------------------------------
+        canvasElement.setAttribute('width', canvasWidth);
+        canvasElement.setAttribute('height', canvasHeight);
+    }
+
 
 
     // add some event listeners
@@ -43,18 +73,6 @@ window.addEventListener('load', function(event) {
     // ==================================================
     var bars = [];
 
-    // bar settings
-    var bar = {
-        defaultThickness: 2,
-        maxThickness: 10,
-        width: 150
-    };
-
-    // layout settings
-    var columnMargin = 30;
-
-    // how many columns can we fit?
-    var numberOfColumns = Math.floor(canvasWidth / (bar.width + columnMargin));
 
     var startingX = 0,
         startingY = 12,
